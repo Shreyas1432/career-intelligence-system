@@ -1,0 +1,62 @@
+# Career Intelligence System Configuration
+
+app:
+  name: "Career Intelligence System"
+  version: "0.1.0"
+  env: "development"
+
+database:
+  url: "sqlite:///data/career_intelligence.db"
+  pool_recycle: 3600
+  echo_sql: false
+
+ai:
+  # Default fallback models
+  default_chat_model: "openai/gpt-4o-mini"
+  default_embedding_model: "openai/text-embedding-3-small"
+  max_tokens: 2000
+  temperature: 0.2
+
+  # Provider specific overrides
+  providers:
+    openai:
+      model: "gpt-4o-mini"
+    anthropic:
+      model: "claude-3-5-haiku-20241022"
+    ollama:
+      model: "llama3"
+
+browser:
+  browser_type: "chromium"
+  headless: true
+  max_browser_instances: 1
+  max_contexts: 2
+  navigation_timeout_ms: 15000
+  action_timeout_ms: 10000
+  network_idle_timeout_ms: 5000
+  retry_attempts: 2
+  retry_backoff_seconds: 0.25
+  wait_until: "domcontentloaded"
+  viewport_width: 1280
+  viewport_height: 900
+  java_script_enabled: true
+  block_resource_types: []
+
+scrapegraphai:
+  model: "llama3"
+  base_url: null
+  model_tokens: 4096
+  temperature: 0.0
+  timeout_seconds: 60.0
+  retry_attempts: 1
+  retry_backoff_seconds: 0.5
+  max_source_chars: 12000
+  verbose: false
+  headless: true
+
+modules:
+  resume:
+    max_upload_size_mb: 5
+    allowed_extensions: [".pdf", ".docx", ".txt"]
+  interview:
+    max_history_sessions: 10
