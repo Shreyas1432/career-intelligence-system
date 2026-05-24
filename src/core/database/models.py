@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Optional
 
-from sqlalchemy import JSON, DateTime, ForeignKey, String, Text
+from sqlalchemy import JSON, DateTime, ForeignKey, String, Text, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -26,6 +26,14 @@ class UserProfile(Base):
     target_roles: Mapped[str | None] = mapped_column(Text)  # Comma-separated target titles
     skills: Mapped[str | None] = mapped_column(Text)  # Comma-separated list of competencies
     experience_summary: Mapped[str | None] = mapped_column(Text)
+    domains: Mapped[list[str] | None] = mapped_column(JSON)
+    positioning: Mapped[dict[str, Any] | None] = mapped_column(JSON)
+    experience: Mapped[list[dict[str, Any]] | None] = mapped_column(JSON)
+    target_industries: Mapped[list[str] | None] = mapped_column(JSON)
+    communication_preferences: Mapped[dict[str, Any] | None] = mapped_column(JSON)
+    role_preferences: Mapped[dict[str, Any] | None] = mapped_column(JSON)
+    avoid_role_filters: Mapped[dict[str, Any] | None] = mapped_column(JSON)
+    additional_metadata: Mapped[dict[str, Any] | None] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
@@ -204,4 +212,68 @@ class JobIntelligence(Base):
 
     def __repr__(self) -> str:
         return f"<JobIntelligence {self.title} at {self.company} (URL Hash: {self.url_hash[:8]})>"
+
+
+class JobEmbedding(Base):
+    """
+    SQLAlchemy model storing 384-dimensional dense vectors for Job Intelligence items.
+    """
+
+    __tablename__ = "job_embeddings"
+
+    job_id: Mapped[int] = mapped_column(
+        ForeignKey("job_intelligence.id", ondelete="CASCADE"), primary_key=True
+    )
+    embedding: Mapped[list[float]] = mapped_column(JSON, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f"<JobEmbedding job_id={self.job_id}>"
+
+
+class ProfileEmbedding(Base):
+    """
+    SQLAlchemy model storing 384-dimensional dense vectors for User Profiles.
+    """
+
+    __tablename__ = "profile_embeddings"
+
+    profile_id: Mapped[int] = mapped_column(
+        ForeignKey("user_profile.id", ondelete="CASCADE"), primary_key=True
+    )
+    embedding: Mapped[list[float]] = mapped_column(JSON, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f"<ProfileEmbedding profile_id={self.profile_id}>"
+
+
+class GovernmentSponsorship(Base):
+    """
+    SQLAlchemy model storing historical government H-1B or visa sponsorship records.
+    """
+
+    __tablename__ = "government_sponsorship"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    company_name: Mapped[str] = mapped_column(String(255), index=True, nullable=False)
+    normalized_company_name: Mapped[str] = mapped_column(String(255), index=True, nullable=False)
+    fiscal_year: Mapped[int] = mapped_column(nullable=False)
+    approved_petitions: Mapped[int] = mapped_column(default=0, nullable=False)
+    denied_petitions: Mapped[int] = mapped_column(default=0, nullable=False)
+    total_petitions: Mapped[int] = mapped_column(default=0, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("normalized_company_name", "fiscal_year", name="uq_company_year"),
+    )
+
+    def __repr__(self) -> str:
+        return f"<GovernmentSponsorship {self.company_name} FY{self.fiscal_year} (Approved: {self.approved_petitions})>"
+
+
+# Register feature models to ensure they are added to Base metadata
+from src.modules.opportunity_ranking.models import OpportunityRankingResult  # noqa: E402
+
+
 
