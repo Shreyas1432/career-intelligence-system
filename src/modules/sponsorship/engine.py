@@ -1,7 +1,12 @@
+from typing import Any
+
 import structlog
 from pydantic import BaseModel, Field
 
 from src.core.ai.service import AIService
+from src.modules.sponsorship.persistence import SponsorshipPersistenceService
+from src.modules.sponsorship.schemas import SponsorshipReasoningMetadata, SponsorshipScoringResponse
+from src.modules.sponsorship.scoring import calculate_sponsorship_score
 
 from .rules import scan_rules
 from .types import (
@@ -121,3 +126,74 @@ class SponsorshipDetector:
                 error=str(exc),
             )
             return rule_result
+
+
+class SponsorshipScoringEngine:
+    """
+    Combined visa sponsorship intelligence scoring engine.
+    Integrates historical government data with real-time job posting signals.
+    """
+
+    def __init__(
+        self,
+        persistence_service: SponsorshipPersistenceService,
+        detector: SponsorshipDetector | None = None,
+    ) -> None:
+        self.persistence_service = persistence_service
+        self.detector = detector or SponsorshipDetector()
+
+    async def evaluate_sponsorship(
+        self,
+        company: str,
+        job_description: str | None = None,
+        extracted_signals: Any = None,
+        use_ai: bool = False,
+    ) -> SponsorshipScoringResponse:
+        """
+        Evaluate and score a company's visa sponsorship likelihood.
+        """
+        # 1. Fetch historical record summary
+        history = self.persistence_service.get_historical_summary(company)
+
+        # 2. Get real-time job posting signals
+        extracted_status = SponsorshipStatus.UNKNOWN
+        extracted_confidence = 0.0
+
+        if extracted_signals is not None:
+            if isinstance(extracted_signals, DetectionResult):
+                extracted_status = extracted_signals.status
+                extracted_confidence = extracted_signals.confidence
+            elif isinstance(extracted_signals, dict):
+                status_raw = extracted_signals.get("status", "unknown")
+                try:
+                    extracted_status = SponsorshipStatus(status_raw)
+                except ValueError:
+                    extracted_status = SponsorshipStatus.UNKNOWN
+                extracted_confidence = extracted_signals.get("confidence", 0.0)
+        elif job_description:
+            det_res = await self.detector.detect(job_description, use_ai=use_ai)
+            extracted_status = det_res.status
+            extracted_confidence = det_res.confidence
+
+        # 3. Perform blended scoring calculations
+        score, confidence, strengths, gaps, explanation = calculate_sponsorship_score(
+            history_summary=history,
+            extracted_status=extracted_status,
+            extracted_confidence=extracted_confidence,
+        )
+
+        reasoning = SponsorshipReasoningMetadata(
+            historical_approved_petitions=history.get("approved", 0),
+            historical_denied_petitions=history.get("denied", 0),
+            extracted_job_status=extracted_status,
+            extracted_job_confidence=extracted_confidence,
+            strengths=strengths,
+            gaps=gaps,
+            explanation=explanation,
+        )
+
+        return SponsorshipScoringResponse(
+            sponsorship_score=score,
+            sponsorship_confidence=confidence,
+            reasoning=reasoning,
+        )
