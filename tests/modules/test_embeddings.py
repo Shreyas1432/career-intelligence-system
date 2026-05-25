@@ -3,14 +3,14 @@ import pytest
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence, UserProfile
-from src.modules.embeddings.cache import EmbeddingCache
-from src.modules.embeddings.pipeline import (
+from src.modules.matching.embeddings import (
+    EmbeddingCache,
     EmbeddingPipeline,
+    EmbeddingRepository,
+    EmbeddingService,
     format_job_text,
     format_profile_text,
 )
-from src.modules.embeddings.repository import EmbeddingRepository
-from src.modules.embeddings.service import EmbeddingService
 
 
 class MockSentenceTransformer:
@@ -62,7 +62,7 @@ def mock_sentence_transformer(monkeypatch):
     """
     mock_model = MockSentenceTransformer()
     monkeypatch.setattr(
-        "src.modules.embeddings.service.SentenceTransformer", lambda _name: mock_model
+        "src.modules.matching.embeddings.SentenceTransformer", lambda _name: mock_model
     )
     return mock_model
 

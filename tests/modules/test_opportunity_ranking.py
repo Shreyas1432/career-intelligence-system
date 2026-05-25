@@ -2,15 +2,14 @@ import numpy as np
 import pytest
 from sqlalchemy.orm import Session
 
-from src.modules.job_extraction.schemas import JobDomain
-from src.modules.opportunity_ranking.engine import OpportunityRankingEngine
-from src.modules.opportunity_ranking.schemas import (
+from src.modules.matching import (
+    OpportunityRankingEngine,
     RankingWeights,
     RecommendationCategory,
+    SponsorshipPersistenceService,
 )
-from src.modules.sponsorship.persistence import SponsorshipPersistenceService
-from src.modules.user_profile.schemas import UserProfileCreate
-from src.modules.user_profile.service import UserProfileService
+from src.modules.positioning.profile import UserProfileCreate, UserProfileService
+from src.modules.scraping.schemas import JobDomain
 
 
 class MockSentenceTransformerForRanking:
@@ -67,7 +66,7 @@ def mock_sentence_transformer(monkeypatch):
     """
     mock_model = MockSentenceTransformerForRanking()
     monkeypatch.setattr(
-        "src.modules.embeddings.service.SentenceTransformer", lambda _name: mock_model
+        "src.modules.matching.embeddings.SentenceTransformer", lambda _name: mock_model
     )
     return mock_model
 

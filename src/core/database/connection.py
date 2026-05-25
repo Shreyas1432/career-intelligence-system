@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session, sessionmaker
 
 from src.core.config import PROJECT_ROOT, settings
+from src.core.database.models import Base
 
 # Ensure data directory exists
 db_dir = PROJECT_ROOT / "data"
@@ -36,9 +37,6 @@ def set_sqlite_pragmas(dbapi_connection: Any, _connection_record: Any) -> None:
 
 # Session builder
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Import Base class from models to ensure a unified registry
-from src.core.database.models import Base  # noqa: E402
 
 
 @contextmanager

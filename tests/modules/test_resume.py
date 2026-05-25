@@ -1,6 +1,6 @@
 import pytest
 
-from src.modules.resume.service import analyze_resume
+from src.modules.resume import analyze_resume
 
 
 @pytest.mark.usefixtures("mock_ai_client")

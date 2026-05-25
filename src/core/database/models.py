@@ -273,7 +273,6 @@ class GovernmentSponsorship(Base):
 
 
 # Register feature models to ensure they are added to Base metadata
-from src.modules.opportunity_ranking.models import OpportunityRankingResult  # noqa: E402
 
 
 
