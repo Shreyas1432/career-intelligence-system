@@ -1,7 +1,6 @@
 import pytest
 
-from src.modules.explainability.service import ExplainabilityService
-from src.modules.sponsorship.types import SponsorshipStatus
+from src.modules.matching import ExplainabilityService, SponsorshipStatus
 
 
 @pytest.fixture

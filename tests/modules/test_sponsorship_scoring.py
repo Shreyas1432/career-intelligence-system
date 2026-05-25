@@ -1,13 +1,14 @@
 import pytest
 from sqlalchemy.orm import Session
 
-from src.modules.sponsorship.engine import SponsorshipScoringEngine
-from src.modules.sponsorship.persistence import (
+from src.modules.matching import (
+    DetectionResult,
     SponsorshipPersistenceService,
+    SponsorshipScoringEngine,
+    SponsorshipStatus,
+    calculate_sponsorship_score,
     normalize_company_name,
 )
-from src.modules.sponsorship.scoring import calculate_sponsorship_score
-from src.modules.sponsorship.types import DetectionResult, SponsorshipStatus
 
 
 def test_normalize_company_name():

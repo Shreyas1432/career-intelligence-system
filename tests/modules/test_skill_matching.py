@@ -1,15 +1,14 @@
 import numpy as np
 import pytest
 
-from src.modules.job_extraction.schemas import JobDomain
-from src.modules.skill_matching.engine import SkillMatchingEngine
-from src.modules.skill_matching.schemas import MatchType
-from src.modules.skill_matching.scoring import (
+from src.modules.matching.skill_matching import (
+    MatchType,
+    SkillMatchingEngine,
     calculate_domain_alignment_bonus,
     calculate_procurement_bonus,
     calculate_skill_weight,
 )
-from src.modules.skill_normalization import SkillCategory
+from src.modules.scraping.schemas import JobDomain, SkillCategory
 
 
 class MockSentenceTransformerForMatching:
@@ -74,7 +73,7 @@ def mock_sentence_transformer(monkeypatch):
     """
     mock_model = MockSentenceTransformerForMatching()
     monkeypatch.setattr(
-        "src.modules.embeddings.service.SentenceTransformer", lambda _name: mock_model
+        "src.modules.matching.embeddings.SentenceTransformer", lambda _name: mock_model
     )
     return mock_model
 

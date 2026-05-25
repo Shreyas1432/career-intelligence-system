@@ -1,13 +1,13 @@
 import numpy as np
 import pytest
 
-from src.modules.domain_alignment.engine import DomainAlignmentEngine
-from src.modules.domain_alignment.schemas import DomainCategory
-from src.modules.domain_alignment.taxonomy import (
+from src.modules.matching.domain_alignment import (
+    DomainAlignmentEngine,
+    DomainCategory,
     clean_text_for_matching,
     extract_matched_keywords,
 )
-from src.modules.job_extraction.schemas import JobDomain
+from src.modules.scraping.schemas import JobDomain
 
 
 class MockSentenceTransformerForAlignment:
@@ -68,7 +68,7 @@ def mock_sentence_transformer(monkeypatch):
     """
     mock_model = MockSentenceTransformerForAlignment()
     monkeypatch.setattr(
-        "src.modules.embeddings.service.SentenceTransformer", lambda _name: mock_model
+        "src.modules.matching.embeddings.SentenceTransformer", lambda _name: mock_model
     )
     return mock_model
 
