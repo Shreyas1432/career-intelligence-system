@@ -10,6 +10,8 @@ T = TypeVar("T", bound=Base)
 class BaseRepository(Generic[T]):  # noqa: UP046
     """
     Generic Base Repository pattern for general database CRUD operations.
+    UP046 is suppressed: PEP 695 class-level generic syntax (`class Foo[T]`) is
+    incompatible with SQLAlchemy's runtime Generic[T] behaviour for this use-case.
     """
 
     def __init__(self, model_class: type[T], session: Session):

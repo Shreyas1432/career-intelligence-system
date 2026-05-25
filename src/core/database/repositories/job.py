@@ -41,9 +41,24 @@ class ApplicationRepository(BaseRepository[Application]):
 
     def get_application_with_details(self, application_id: int) -> Application | None:
         """
-        Fetch application eagerly loading job metadata.
+        Fetch application by ID, eagerly loading job metadata.
+        Returns None when the application does not exist.
         """
         return self.session.query(Application).filter(Application.id == application_id).first()
+
+    def get_application_with_details_or_raise(self, application_id: int) -> Application:
+        """
+        Fetch application by ID, eagerly loading job metadata.
+        Raises ValueError when the application does not exist.
+        Use this variant when the caller holds a known-valid ID (e.g. from a
+        preceding get_by_status result) and a missing record is a data-integrity error.
+        """
+        application = self.session.query(Application).filter(
+            Application.id == application_id
+        ).first()
+        if application is None:
+            raise ValueError(f"Application with ID {application_id} not found")
+        return application
 
 
 class ContactRepository(BaseRepository[Contact]):
