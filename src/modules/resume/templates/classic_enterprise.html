@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ resume.full_name }} - Resume</title>
+    <style>
+        {{ css_content }}
+    </style>
+</head>
+<body>
+
+    <!-- Header info -->
+    <header>
+        <h1>{{ resume.full_name }}</h1>
+        <div class="headline">{{ resume.suggested_headline }}</div>
+        <div class="contact-info">
+            {% if resume.email %}
+                <a href="mailto:{{ resume.email }}">{{ resume.email }}</a>
+            {% endif %}
+            {% if resume.phone %}
+                <span>|</span> {{ resume.phone }}
+            {% endif %}
+            {% if resume.github %}
+                <span>|</span> <a href="{{ resume.github }}">{{ resume.github }}</a>
+            {% endif %}
+            {% if resume.linkedin %}
+                <span>|</span> <a href="{{ resume.linkedin }}">{{ resume.linkedin }}</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Sections dynamically rendered by section_order config -->
+    {% for section in config.section_order %}
+        {% if section == "summary" and resume.professional_summary %}
+            <section id="summary">
+                <h2 class="section-header">Professional Summary</h2>
+                <p class="summary-text">{{ resume.professional_summary }}</p>
+            </section>
+        {% elif section == "experience" and resume.experiences %}
+            <section id="experience">
+                <h2 class="section-header">Professional Experience</h2>
+                {% for job in resume.experiences %}
+                    <div class="job-item">
+                        <div class="job-header">
+                            <span class="job-title-company">
+                                {{ job.title }} <span class="company">at {{ job.company }}</span>
+                            </span>
+                            <span class="job-dates">
+                                {{ job.start_date }} – {{ job.end_date or "Present" }}
+                            </span>
+                        </div>
+                        <ul class="job-bullets">
+                            {% for bullet in job.bullets %}
+                                <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </section>
+        {% elif section == "skills" and resume.skills %}
+            <section id="skills">
+                <h2 class="section-header">Skills & Competencies</h2>
+                <div class="skills-container">
+                    <p class="skills-list">
+                        {% for skill in resume.skills %}
+                            {{ skill }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
+
+</body>
+</html>

@@ -3,8 +3,8 @@ from typing import Any
 
 import pytest
 
-from src.modules.resume_template.engine import ResumeTemplateEngine
-from src.modules.resume_template.schemas import RenderResponse, TemplateStyleConfig
+from src.modules.resume.rendering import ResumeTemplateEngine
+from src.modules.resume.schemas import RenderResponse, TemplateStyleConfig
 
 
 @pytest.fixture

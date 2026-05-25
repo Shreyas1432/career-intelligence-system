@@ -1,0 +1,134 @@
+@page {
+    size: letter;
+    margin: {{ config.margin_top }} {{ config.margin_right }} {{ config.margin_bottom }} {{ config.margin_left }};
+}
+
+body {
+    font-family: {{ config.font_family }};
+    color: {{ config.text_color }};
+    line-height: 1.4;
+    font-size: 10.5pt;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Section */
+header {
+    text-align: center;
+    margin-bottom: 15pt;
+}
+
+header h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    color: {{ config.primary_color }};
+    margin: 0 0 4pt 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.headline {
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: {{ config.secondary_color }};
+    margin: 0 0 6pt 0;
+}
+
+.contact-info {
+    font-size: 9pt;
+    color: {{ config.text_color }};
+}
+
+.contact-info a {
+    color: {{ config.text_color }};
+    text-decoration: none;
+}
+
+.contact-info span {
+    margin: 0 5pt;
+    color: {{ config.secondary_color }};
+}
+
+/* Sections General */
+section {
+    margin-bottom: 14pt;
+}
+
+h2.section-header {
+    font-size: 11pt;
+    font-weight: bold;
+    color: {{ config.primary_color }};
+    border-bottom: 1.5px solid {{ config.primary_color }};
+    text-transform: uppercase;
+    margin: 0 0 6pt 0;
+    padding-bottom: 2pt;
+    letter-spacing: 0.5px;
+}
+
+/* Summary Section */
+.summary-text {
+    text-align: justify;
+    margin: 0;
+    font-size: 10pt;
+}
+
+/* Experience Section */
+.job-item {
+    margin-bottom: 10pt;
+    page-break-inside: avoid;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3pt;
+}
+
+.job-title-company {
+    font-size: 10.5pt;
+    font-weight: bold;
+}
+
+.job-title-company .company {
+    font-weight: normal;
+    font-style: italic;
+    color: {{ config.secondary_color }};
+}
+
+.job-dates {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: {{ config.secondary_color }};
+    white-space: nowrap;
+}
+
+ul.job-bullets {
+    margin: 0;
+    padding-left: 15pt;
+    font-size: 10pt;
+}
+
+ul.job-bullets li {
+    margin-bottom: 3pt;
+    text-align: justify;
+}
+
+/* Skills Section */
+.skills-container {
+    font-size: 10pt;
+    line-height: 1.5;
+}
+
+.skills-list {
+    margin: 0;
+}
+
+.skills-group {
+    margin-bottom: 4pt;
+}
+
+.skills-group-title {
+    font-weight: bold;
+    color: {{ config.primary_color }};
+}

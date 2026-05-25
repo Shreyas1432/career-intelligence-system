@@ -1,9 +1,11 @@
 import pytest
 
-from src.modules.resume_tailoring.engine import ResumeTailoringEngine
-from src.modules.resume_tailoring.pipeline import ResumeTransformationPipeline
-from src.modules.resume_tailoring.schemas import TailoredResumeResponse
-from src.modules.resume_tailoring.validation import ResumeTailoringValidator
+from src.modules.resume.schemas import TailoredResumeResponse
+from src.modules.resume.tailoring import (
+    ResumeTailoringEngine,
+    ResumeTailoringValidator,
+    ResumeTransformationPipeline,
+)
 
 
 def test_prioritization_and_metric_preservation() -> None:

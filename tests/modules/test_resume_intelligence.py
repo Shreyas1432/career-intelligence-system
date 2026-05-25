@@ -1,8 +1,10 @@
-from src.modules.resume_intelligence.engine import ResumeIntelligenceEngine
-from src.modules.resume_intelligence.explanation import ResumeExplanationLayer
-from src.modules.resume_intelligence.prioritization import ExperiencePrioritizer
-from src.modules.resume_intelligence.schemas import TailoringStrategyResponse
-from src.modules.resume_intelligence.strategy import ResumeStrategyLayer
+from src.modules.resume.intelligence import (
+    ExperiencePrioritizer,
+    ResumeExplanationLayer,
+    ResumeIntelligenceEngine,
+    ResumeStrategyLayer,
+)
+from src.modules.resume.schemas import TailoringStrategyResponse
 
 
 def test_experience_prioritization_rules() -> None:
