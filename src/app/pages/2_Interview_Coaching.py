@@ -33,7 +33,7 @@ if st.button("Generate Interview Question", type="secondary"):
         with st.spinner("Generating mock question..."):
             try:
                 # Lazy loading backend logic to decrease memory footprint
-                from src.modules.interview import conduct_mock_interview
+                from src.modules.automation import conduct_mock_interview
 
                 question = conduct_mock_interview(
                     role, question_type, state_manager.interview_history
@@ -68,7 +68,7 @@ if st.button("Submit Response", type="primary"):
         with st.spinner("Evaluating your response..."):
             try:
                 # Lazy loading backend logic to decrease memory footprint
-                from src.modules.interview import conduct_mock_interview
+                from src.modules.automation import conduct_mock_interview
 
                 # Get feedback using assistant's question and user's answer
                 feedback_prompt = f"Analyze response for: '{state_manager.current_question}'. User answered: '{answer}'"

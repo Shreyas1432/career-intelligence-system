@@ -2,9 +2,13 @@ import asyncio
 
 import pytest
 
-from src.modules.ats_detector import ATSDetector, ATSPlatform, detect_ats, detect_ats_sync
-from src.modules.ats_detector.strategies import GreenhouseStrategy
-from src.modules.ats_detector.types import DetectionContext
+from src.modules.scraping.ats_detection import (
+    ATSDetector,
+    GreenhouseStrategy,
+    detect_ats,
+    detect_ats_sync,
+)
+from src.modules.scraping.schemas import ATSPlatform, DetectionContext
 
 
 @pytest.mark.parametrize(

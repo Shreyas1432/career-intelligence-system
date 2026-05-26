@@ -203,7 +203,7 @@ def mock_scrapegraph_adapter(monkeypatch: pytest.MonkeyPatch) -> MockScrapeGraph
     """
     adapter = MockScrapeGraphAdapter()
     monkeypatch.setattr(
-        "src.modules.job_extraction.scrapegraph_adapter.ScrapeGraphAIAdapter.run",
+        "src.modules.scraping.extraction.ScrapeGraphAIAdapter.run",
         adapter.run,
     )
     return adapter

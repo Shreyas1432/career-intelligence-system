@@ -1,13 +1,14 @@
 import pytest
 
 from src.core.ai.service import AIService
-from src.modules.sponsorship import (
+from src.modules.matching import (
+    AISignal,
+    AISponsorshipResult,
     SignalType,
     SponsorshipDetector,
     SponsorshipStatus,
     scan_rules,
 )
-from src.modules.sponsorship.engine import AISignal, AISponsorshipResult
 from tests.fixtures.ai import MockLLMClient
 
 

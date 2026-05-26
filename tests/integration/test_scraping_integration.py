@@ -7,7 +7,7 @@ from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence
-from src.modules.scraping_pipeline import ScrapingPipeline
+from src.modules.scraping import ScrapingPipeline
 from tests.fixtures.scraping_extraction import MockScrapeGraphAdapter
 from tests.utils.scraping_mocks import (
     MOCK_GREENHOUSE_EXTRACTION,

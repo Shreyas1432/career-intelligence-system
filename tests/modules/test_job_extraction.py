@@ -5,7 +5,7 @@ import pytest
 from pydantic import BaseModel
 
 from src.core.config.scrapegraphai import ScrapeGraphAIConfig
-from src.modules.job_extraction import (
+from src.modules.scraping import (
     EmploymentType,
     JobDomain,
     JobExtractionResult,
@@ -15,7 +15,7 @@ from src.modules.job_extraction import (
     JobIntelligenceSchema,
     VisaSignal,
 )
-from src.modules.job_extraction.scrapegraph_adapter import ScrapeGraphAIAdapter
+from src.modules.scraping.extraction import ScrapeGraphAIAdapter
 
 
 class FakeAdapter:

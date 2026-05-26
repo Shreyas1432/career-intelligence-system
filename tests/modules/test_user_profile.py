@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy.orm import Session
 
 from src.core.database.models import UserProfile
-from src.modules.user_profile import (
+from src.modules.positioning.profile import (
     AvoidRoleFiltersSchema,
     CommunicationPreferencesSchema,
     ExperienceItemSchema,

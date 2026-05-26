@@ -37,7 +37,7 @@ if st.button("Generate Transition Roadmap", type="primary"):
         with st.spinner("Generating labor market map and gap analysis..."):
             try:
                 # Lazy loading backend logic to decrease memory footprint
-                from src.modules.career_path import get_career_map
+                from src.modules.automation import get_career_map
 
                 roadmap = get_career_map(current_role, target_role, skills)
                 st.success("Roadmap generated successfully!")

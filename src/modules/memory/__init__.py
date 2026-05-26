@@ -1,0 +1,131 @@
+from src.modules.memory.embeddings import (
+    EmbeddingEligibilityEvaluator,
+    EmbeddingNormalizer,
+    EmbeddingProvider,
+    EmbeddingService,
+    LocalSentenceTransformerProvider,
+)
+from src.modules.memory.export_sync import (
+    ExportEligibilityEvaluator,
+    MemoryExportService,
+    ObsidianExportFormatter,
+    VaultPathManager,
+)
+from src.modules.memory.ingestion import (
+    IngestionResult,
+    IngestionSourceClassifier,
+    IngestionStatus,
+    MemoryCompressionCoordinator,
+    MemoryIngestionService,
+    MemoryPreprocessor,
+    PreprocessedNote,
+)
+from src.modules.memory.persistence import (
+    ArchivalClassification,
+    LifecycleSweepResult,
+    MemoryDeduplicationCoordinator,
+    MemoryLifecycleManager,
+    MemoryPersistenceService,
+    PersistenceEligibility,
+    PersistencePolicyManager,
+    PersistenceResult,
+)
+from src.modules.memory.ranking import (
+    DiversityBalancer,
+    FreshnessScorer,
+    OperationalRelevanceScorer,
+    RetrievalRankingService,
+)
+from src.modules.memory.repositories import (
+    EmbeddingRepository,
+    MemoryRepository,
+    MemorySummaryRepository,
+    RetrievalRepository,
+)
+from src.modules.memory.retrieval import (
+    ContextAssembler,
+    MemoryRetrievalService,
+    RetrievalFilter,
+    SemanticRetrievalEngine,
+)
+from src.modules.memory.schemas import (
+    MemoryCreate,
+    MemoryDomain,
+    MemoryEmbedding,
+    MemoryEntry,
+    MemoryImportance,
+    MemoryRetrievalResult,
+    MemorySource,
+    MemorySummary,
+    MemoryType,
+    MemoryUpdate,
+    RetrievalContext,
+)
+from src.modules.memory.significance import (
+    MemoryImportanceScorer,
+    NoiseFilter,
+    RetentionDecision,
+    RetentionPolicyManager,
+    SignificanceEvaluator,
+    SignificanceScore,
+)
+
+__all__ = [
+    "ArchivalClassification",
+    "ContextAssembler",
+    "DiversityBalancer",
+    "EmbeddingEligibilityEvaluator",
+    "EmbeddingNormalizer",
+    "EmbeddingProvider",
+    "EmbeddingRepository",
+    "EmbeddingService",
+    "ExportEligibilityEvaluator",
+    "FreshnessScorer",
+    "IngestionResult",
+    "IngestionSourceClassifier",
+    "IngestionStatus",
+    "LifecycleSweepResult",
+    "LocalSentenceTransformerProvider",
+    "MemoryCompressionCoordinator",
+    "MemoryCreate",
+    "MemoryDeduplicationCoordinator",
+    "MemoryDomain",
+    "MemoryEmbedding",
+    "MemoryEntry",
+    "MemoryExportService",
+    "MemoryImportance",
+    "MemoryImportanceScorer",
+    "MemoryIngestionService",
+    "MemoryLifecycleManager",
+    "MemoryPersistenceService",
+    "MemoryPreprocessor",
+    "MemoryRepository",
+    "MemoryRetrievalResult",
+    "MemoryRetrievalService",
+    "MemorySource",
+    "MemorySummary",
+    "MemorySummaryRepository",
+    "MemoryType",
+    "MemoryUpdate",
+    "NoiseFilter",
+    "ObsidianExportFormatter",
+    "OperationalRelevanceScorer",
+    "PersistenceEligibility",
+    "PersistencePolicyManager",
+    "PersistenceResult",
+    "PreprocessedNote",
+    "RetentionDecision",
+    "RetentionPolicyManager",
+    "RetrievalContext",
+    "RetrievalFilter",
+    "RetrievalRankingService",
+    "RetrievalRepository",
+    "SemanticRetrievalEngine",
+    "SignificanceEvaluator",
+    "SignificanceScore",
+    "VaultPathManager",
+]
+
+
+
+
