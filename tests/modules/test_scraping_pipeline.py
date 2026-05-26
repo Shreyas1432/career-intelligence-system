@@ -5,14 +5,14 @@ from sqlalchemy.orm import Session
 
 from src.core.browser.types import PageSnapshot
 from src.core.database.models import JobIntelligence
-from src.modules.job_extraction.schemas import (
+from src.modules.matching import DetectionResult, SponsorshipStatus
+from src.modules.scraping import ScrapingPipeline, clean_html, clean_text
+from src.modules.scraping.schemas import (
     EmploymentType,
     JobDomain,
     JobExtractionResult,
     VisaSignal,
 )
-from src.modules.scraping_pipeline import ScrapingPipeline, clean_html, clean_text
-from src.modules.sponsorship.types import DetectionResult, SponsorshipStatus
 
 # ------------------------------------------------------------------------------
 # Mock / Double Definitions

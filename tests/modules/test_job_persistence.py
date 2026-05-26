@@ -5,23 +5,23 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence
-from src.modules.job_extraction.schemas import (
-    EmploymentType,
-    JobDomain,
-    JobIntelligenceSchema,
-    VisaSignal,
-)
-from src.modules.job_persistence import (
+from src.modules.job_ingestion import (
     JobIntelligenceRepository,
     JobPersistenceService,
     compute_content_hash,
     compute_url_hash,
 )
-from src.modules.sponsorship import (
+from src.modules.matching import (
     DetectionResult,
     SignalType,
     SponsorshipSignal,
     SponsorshipStatus,
+)
+from src.modules.scraping.schemas import (
+    EmploymentType,
+    JobDomain,
+    JobIntelligenceSchema,
+    VisaSignal,
 )
 
 

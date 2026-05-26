@@ -2,12 +2,12 @@ import pytest
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence
-from src.modules.job_extraction.schemas import JobDomain
-from src.modules.opportunity_ranking import (
+from src.modules.matching import (
     OpportunityOrchestrator,
     OpportunityRankingResult,
 )
-from src.modules.user_profile import UserProfileCreate, UserProfileService
+from src.modules.positioning.profile import UserProfileCreate, UserProfileService
+from src.modules.scraping.schemas import JobDomain
 
 
 @pytest.fixture(autouse=True)
@@ -23,11 +23,11 @@ def mock_embedding_generation(monkeypatch):
         return [0.2] * 384
 
     monkeypatch.setattr(
-        "src.modules.opportunity_ranking.orchestrator.EmbeddingPipeline.embed_profile",
+        "src.modules.matching.EmbeddingPipeline.embed_profile",
         mock_embed_profile,
     )
     monkeypatch.setattr(
-        "src.modules.opportunity_ranking.orchestrator.EmbeddingPipeline.embed_job",
+        "src.modules.matching.EmbeddingPipeline.embed_job",
         mock_embed_job,
     )
 
@@ -116,7 +116,7 @@ async def test_orchestrator_partial_failure_fallback(
         raise RuntimeError("Mock Domain Engine Error")
 
     monkeypatch.setattr(
-        "src.modules.opportunity_ranking.orchestrator.DomainAlignmentEngine.align_domain",
+        "src.modules.matching.DomainAlignmentEngine.align_domain",
         mock_align_domain,
     )
 

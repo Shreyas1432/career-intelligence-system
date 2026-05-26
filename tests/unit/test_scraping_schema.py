@@ -3,7 +3,7 @@
 import pytest
 from pydantic import ValidationError
 
-from src.modules.job_extraction import (
+from src.modules.scraping import (
     EmploymentType,
     JobDomain,
     JobExtractionResult,

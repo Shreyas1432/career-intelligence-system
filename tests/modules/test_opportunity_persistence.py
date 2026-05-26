@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence
-from src.modules.opportunity_ranking import (
+from src.modules.matching import (
     FactorScores,
     OpportunityRankingRepository,
     OpportunityRankingResponse,
@@ -11,7 +11,7 @@ from src.modules.opportunity_ranking import (
     RankingWeights,
     RecommendationCategory,
 )
-from src.modules.user_profile import UserProfileCreate, UserProfileService
+from src.modules.positioning.profile import UserProfileCreate, UserProfileService
 
 
 @pytest.fixture

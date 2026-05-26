@@ -1,14 +1,13 @@
 import pytest
 
-from src.modules.skill_normalization import (
-    CanonicalSkill,
-    SkillCategory,
+from src.modules.scraping.normalization import (
     SkillNormalizer,
     canonicalize_skills,
     normalize_lookup_key,
     normalize_skill,
     normalize_skills,
 )
+from src.modules.scraping.schemas import CanonicalSkill, SkillCategory
 
 
 @pytest.mark.parametrize(

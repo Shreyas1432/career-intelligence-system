@@ -1,6 +1,6 @@
 import pytest
 
-from src.modules.interview.service import conduct_mock_interview
+from src.modules.automation import conduct_mock_interview
 
 
 @pytest.mark.usefixtures("mock_ai_client")

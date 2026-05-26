@@ -1,6 +1,6 @@
 import pytest
 
-from src.modules.career_path.service import get_career_map
+from src.modules.automation import get_career_map
 
 
 @pytest.mark.usefixtures("mock_ai_client")

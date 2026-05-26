@@ -6,12 +6,12 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from src.core.database.models import JobIntelligence
-from src.modules.opportunity_ranking import (
+from src.modules.matching import (
     OpportunityOrchestrator,
     RecommendationCategory,
+    SponsorshipPersistenceService,
 )
-from src.modules.sponsorship import SponsorshipPersistenceService
-from src.modules.user_profile import (
+from src.modules.positioning.profile import (
     PositioningSchema,
     UserProfileCreate,
     UserProfileService,
@@ -77,7 +77,7 @@ def mock_sentence_transformer(
     """
     mock_model = MockSentenceTransformerForSuite()
     monkeypatch.setattr(
-        "src.modules.embeddings.service.SentenceTransformer",
+        "src.modules.matching.embeddings.SentenceTransformer",
         lambda _name: mock_model,
     )
     return mock_model
